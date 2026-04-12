@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoFlight.ai — Aviation for all of us</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+/* ─── RESET ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #ffffff; color: #111827; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; }
+
+/* ─── VARIABLES ─── */
+:root {
+  --blue: #2563eb; --blue-dark: #1e40af; --blue-light: #eff6ff;
+  --orange: #f27b35; --orange-light: #fff7ed;
+  --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
+  --gray-400: #9ca3af; --gray-500: #6b7280; --gray-900: #111827;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gray-200); padding: 12px 24px;
+}
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; }
+
+/* ─── HERO SPLIT ─── */
+.hero-split {
+  padding: 140px 24px 80px; max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: start;
+}
+
+/* ─── FEATURE LIST (RIGHT SIDE) ─── */
+.fl-card { background: #fff; border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+.fl-header { padding: 20px 24px 12px; border-bottom: 1px solid var(--gray-100); }
+.fl-header span { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--gray-400); }
+.fl-row {
+  display: flex; align-items: center; gap: 12px; padding: 14px 24px;
+  border-bottom: 1px solid var(--gray-100); color: var(--gray-900);
+  font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.15s;
+}
+.fl-row:last-child { border-bottom: none; }
+.fl-row:hover { background: var(--blue-light); }
+.fl-row i:first-child { color: var(--blue); font-size: 18px; width: 24px; text-align: center; }
+.fl-name { flex: 1; }
+.fl-tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+.fl-live { background: #dcfce7; color: #16a34a; }
+.fl-preview { background: var(--blue-light); color: var(--blue); }
+.fl-coming { background: var(--orange-light); color: var(--orange); }
+.fl-chevron { color: #d1d5db; font-size: 14px; }
+
+/* ─── PERSONA PILLS ─── */
+.persona-pills { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.persona-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px; border-radius: 50px; border: 2px solid var(--gray-200);
+  background: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600; font-size: 14px; color: #4b5563; transition: all 0.2s; cursor: pointer;
+}
+.persona-pill:first-child { border-color: var(--blue); color: var(--blue); }
+.persona-pill:hover { border-color: var(--blue); color: var(--blue); }
+
+/* ─── CAROUSEL ─── */
+.carousel-wrap { position: relative; overflow: hidden; background: var(--gray-50); min-height: calc(100vh - 72px); display: flex; flex-direction: column; }
+.carousel-track { display: flex; transition: transform 0.4s ease; }
+.carousel-slide { min-width: 100%; flex-shrink: 0; padding: 32px 24px 40px; display: flex; align-items: flex-start; }
+.carousel-slide .inner { max-width: 1200px; margin: 0 auto; width: 100%; }
+.carousel-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+  width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--gray-200);
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 22px; color: var(--blue);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: all 0.2s;
+}
+.carousel-arrow:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.carousel-arrow.prev { left: 24px; }
+.carousel-arrow.next { right: 24px; }
+.carousel-dots { display: flex; justify-content: center; gap: 8px; padding: 24px 0; background: var(--gray-50); }
+.carousel-dot { width: 10px; height: 10px; border-radius: 50%; background: #d1d5db; border: none; cursor: pointer; transition: background 0.2s; }
+.carousel-dot.active { background: var(--blue); }
+
+/* ─── CAROUSEL SLIDE CONTENT ─── */
+.slide-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; color: var(--gray-400); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.slide-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(28px, 4vw, 40px); color: var(--gray-900); margin-bottom: 16px; }
+.slide-sub { font-size: 17px; color: var(--gray-500); line-height: 1.6; max-width: 720px; margin-bottom: 40px; }
+.slide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.slide-card { background: #fff; border: 1px solid var(--gray-200); border-radius: 12px; padding: 24px; position: relative; }
+.slide-card h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 16px; color: var(--gray-900); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.slide-card p { font-size: 14px; color: var(--gray-500); line-height: 1.5; }
+/* AI highlight card */
+.slide-card.ai-highlight { border-color: var(--orange); border-width: 2px; background: var(--orange-light); }
+.slide-card.ai-highlight h3 { color: var(--orange); }
+.ai-icon { width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.ai-icon.blue { background: var(--blue-light); color: var(--blue); }
+.ai-icon.orange { background: var(--orange-light); color: var(--orange); }
+.ai-icon.green { background: #dcfce7; color: #16a34a; }
+/* Accent bar at top of slides */
+.accent-bar { height: 4px; width: 100%; position: absolute; top: 0; left: 0; }
+.accent-blue { background: var(--blue); }
+.accent-orange { background: var(--orange); }
+.accent-blue { background: var(--blue); }
+/* Alt card style for blue-light bg slides */
+.slide-card.on-blue { background: #fff; border-color: rgba(37,99,235,0.15); }
+/* Orange-themed cards for Coming Soon */
+.slide-card.coming-soon { background: #fff; border-color: var(--gray-200); border-width: 1px; }
+.slide-card.coming-soon h3 { color: var(--gray-900); }
+
+/* ─── VISION ─── */
+.vision-section { background: var(--blue-light); padding: 80px 24px; border-top: 1px solid rgba(37,99,235,0.08); }
+.vision-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+
+/* ─── EARLY ACCESS ─── */
+.access-section { padding: 80px 24px; text-align: center; }
+.access-inner { max-width: 720px; margin: 0 auto; }
+.gate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 800px; margin: 40px auto 0; }
+.gate-card { background: #fff; border: 1px solid var(--gray-200); border-radius: 14px; padding: 36px 32px; text-align: left; }
+.gate-card h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px; color: var(--gray-900); margin-bottom: 6px; }
+.gate-desc { font-size: 14px; color: var(--gray-500); margin-bottom: 20px; }
+.gate-fields { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.gate-fields input, .code-row input { width: 100%; padding: 13px 16px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; color: var(--gray-900); font-family: 'Inter', sans-serif; font-size: 15px; outline: none; transition: border-color 0.2s; }
+.gate-fields input:focus, .code-row input:focus { border-color: var(--blue); background: #fff; }
+.gate-fields input::placeholder, .code-row input::placeholder { color: var(--gray-400); }
+.btn-orange { background: var(--orange); color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; width: 100%; }
+.btn-outline { background: #fff; color: var(--blue); border: 2px solid var(--blue); padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
+.code-row { display: flex; gap: 12px; }
+.code-row input { flex: 1; }
+.form-msg { font-size: 13px; margin-top: 12px; }
+.form-msg.success { color: #16a34a; }
+.form-msg.error { color: #dc2626; }
+
+/* ─── FOOTER ─── */
+footer { padding: 40px 24px; text-align: center; font-size: 13px; color: var(--gray-400); border-top: 1px solid var(--gray-200); }
+footer a { color: var(--blue); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .hero-split { grid-template-columns: 1fr !important; gap: 40px !important; padding-top: 100px !important; }
+  .slide-grid { grid-template-columns: 1fr; }
+  .carousel-arrow { display: none; }
+  .gate-grid { grid-template-columns: 1fr; }
+  /* Collapse inline 2-col grids (Wingman slide, etc.) */
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 600px) {
+  nav { padding: 10px 16px; }
+  .hero-split { padding-top: 80px !important; gap: 24px !important; }
+  .carousel-slide { padding: 24px 16px 32px; }
+  .slide-title { font-size: 24px !important; }
+  .slide-sub { font-size: 15px; margin-bottom: 24px; }
+  .slide-card { padding: 18px; }
+  .gate-card { padding: 24px 20px; }
+  .gate-grid { gap: 20px; }
+  .persona-pills { gap: 8px; }
+  .persona-pill { padding: 10px 14px; font-size: 13px; }
+  .fl-card { max-width: 100%; }
+  .fl-row { padding: 12px 16px; font-size: 14px; }
+  .carousel-dots { flex-wrap: wrap; gap: 6px; padding: 16px 12px; }
+  .carousel-dot { width: 8px; height: 8px; }
+  .vision-section, .access-section { padding: 48px 16px; }
+  footer { padding: 24px 16px; }
+}
+
+@media (max-width: 380px) {
+  .hero-split { padding-top: 64px !important; }
+  .slide-title { font-size: 20px !important; }
+  .persona-pill { padding: 8px 12px; font-size: 12px; }
+  .gate-fields input, .code-row input { padding: 11px 12px; font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" onclick="goToSlide(0);return false;" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer;">
+      <svg viewBox="0 0 36 36" fill="none" style="width:1.1em;height:1.1em;flex-shrink:0;">
+        <rect x="0" y="0" width="36" height="36" rx="7" ry="7" fill="#000000"/>
+        <svg x="6" y="6" width="24" height="24" viewBox="0 0 16 16" fill="#FFFFFF">
+          <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849"/>
+        </svg>
+      </svg>
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;line-height:1;">
+        <span style="color:#000000;">Go</span><span style="color:#2563eb;">Flight</span>
+      </span>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══ FULL-PAGE CAROUSEL ═══ -->
+<div class="carousel-wrap" id="feature-carousel" style="margin-top:64px;">
+  <button class="carousel-arrow prev" onclick="carouselMove(-1)"><i class="bi bi-chevron-left"></i></button>
+  <button class="carousel-arrow next" onclick="carouselMove(1)"><i class="bi bi-chevron-right"></i></button>
+  <div class="carousel-track" id="carousel-track">
+
+    <!-- SLIDE 0: HERO -->
+    <div class="carousel-slide" style="background:#fff;padding-top:0;padding-bottom:20px;">
+      <div class="inner">
+        <div class="hero-split" style="padding:0;">
+
+          <!-- LEFT -->
+          <div>
+            <p style="display:inline-flex;align-items:center;gap:8px;margin-bottom:20px;">
+              <span style="width:6px;height:6px;background:var(--orange);border-radius:50%;display:inline-block;"></span>
+              <span style="font-size:13px;font-weight:500;color:var(--gray-400);text-transform:uppercase;letter-spacing:2px;">The Independent Platform</span>
+            </p>
+            <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(36px,4.5vw,56px);line-height:1.08;letter-spacing:-2px;color:var(--gray-900);margin-bottom:0;">
+              Welcome to<br>GoFlight.ai
+            </h1>
+            <p style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(36px,4.5vw,56px);line-height:1.08;letter-spacing:-2px;color:var(--blue);margin-bottom:24px;">Aviation for all of us.</p>
+            <p style="font-size:clamp(17px,2vw,20px);color:var(--gray-500);line-height:1.5;max-width:480px;margin-bottom:0;">The independent platform for private charter — built for operators, brokers, and passengers who want more from aviation without paying more than they should.</p>
+            <div style="display:inline-flex;flex-direction:column;align-items:center;">
+              <div class="persona-pills" style="justify-content:center;">
+                <a class="persona-pill" onclick="goToSlide(10);return false;" href="#"><i class="bi bi-send"></i> I want to fly</a>
+                <a class="persona-pill" onclick="goToSlide(11);return false;" href="#"><i class="bi bi-airplane-engines"></i> I'm an operator</a>
+                <a class="persona-pill" onclick="goToSlide(12);return false;" href="#"><i class="bi bi-box-seam"></i> I'm moving cargo</a>
+              </div>
+              <div class="persona-pills" style="margin-top:12px;justify-content:center;">
+                <a class="persona-pill" style="border-color:var(--orange);color:var(--orange);" onclick="goToSlide(13);return false;" href="#"><i class="bi bi-eye"></i> Our Vision</a>
+                <a class="persona-pill" style="border-color:var(--orange);color:var(--orange);" onclick="goToSlide(14);return false;" href="#"><i class="bi bi-door-open"></i> Request Access</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT — Feature List -->
+          <div class="fl-card">
+            <div class="fl-header"><span>The Platform</span></div>
+            <div class="fl-row" data-slide="1"><i class="bi bi-arrow-repeat"></i><span class="fl-name">Charter Marketplace</span><span class="fl-tag fl-live">Live</span><i class="bi bi-chevron-right fl-chevron"></i></div>
+            <div class="fl-row" data-slide="2"><i class="bi bi-chat-dots"></i><span class="fl-name">Wingman AI</span><span class="fl-tag fl-live">Live</span><i class="bi bi-chevron-right fl-chevron"></i></div>
+            <div class="fl-row" data-slide="3"><i class="bi bi-clipboard-check"></i><span class="fl-name">Charter Management</span><span class="fl-tag fl-live">Live</span><i class="bi bi-chevron-right fl-chevron"></i></div>
+            <div class="fl-row" data-slide="4"><i class="bi bi-speedometer2"></i><span class="fl-name">Operator Tools</span><span class="fl-tag fl-live">Live</span><i class="bi bi-chevron-right fl-chevron"></i></div>
+            <div class="fl-row" data-slide="5"><i class="bi bi-airplane"></i><span class="fl-name">Empty Leg Exchange</span><span class="fl-tag fl-live">Live</span><i class="bi bi-chevron-right fl-chevron"></i></div>
+            <div class="fl-row" data-slide="6"><i class="bi bi-credit-card"></i><span class="fl-name">Payments &amp; Booking</span><span class="fl-tag fl-preview">Preview</span><i class="bi bi-chevron-right fl-chevron"></i></div>
+            <div class="fl-row" data-slide="7"><i class="bi bi-shield-check"></i><span class="fl-name">Safety &amp; Compliance</span><span class="fl-tag fl-preview">Preview</span><i class="bi bi-chevron-right fl-chevron"></i></div>
+            <div class="fl-row" data-slide="8"><i class="bi bi-box-seam"></i><span class="fl-name">Cargo Intelligence</span><span class="fl-tag fl-coming">Soon</span><i class="bi bi-chevron-right fl-chevron"></i></div>
+            <div class="fl-row" data-slide="9"><i class="bi bi-graph-up"></i><span class="fl-name">Market Intelligence</span><span class="fl-tag fl-coming">Soon</span><i class="bi bi-chevron-right fl-chevron"></i></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 1: Charter Marketplace -->
+    <div class="carousel-slide" style="background:#fff;position:relative;">
+      <div class="accent-bar accent-blue"></div>
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-arrow-repeat"></i> <span class="fl-tag fl-live">Live</span></p>
+        <h2 class="slide-title">Charter Marketplace</h2>
+        <p class="slide-sub">Operators get notified about trips in their preferred channel — SMS, WhatsApp, email, Telegram. No board-watching. AI routes, matches, and quotes proactively.</p>
+        <div class="slide-grid">
+          <div class="slide-card ai-highlight"><h3><span class="ai-icon orange"><i class="bi bi-stars"></i></span> Demand that finds you</h3><p>AI reaches out to operators with trips matched to their fleet, location, and capabilities. You don't search — opportunities come to you.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-tag"></i></span> You set the price</h3><p>Competitive bidding on your terms. Passengers see bids transparently. You win on service, speed, and merit.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-people"></i></span> Your customer. Period.</h3><p>No middleman. You own the relationship from first bid to repeat booking. Build loyalty, not dependency.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-lightning"></i></span> Real-time matching</h3><p>New trip requests hit your dashboard instantly. Aircraft type, route, dates — matched to what you actually fly.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 1: Wingman AI -->
+    <div class="carousel-slide">
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-chat-dots"></i> <span class="fl-tag fl-live">Live</span></p>
+        <h2 class="slide-title">Wingman AI</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+          <!-- LEFT: Subtitle + Feature cards -->
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <p style="font-size:17px;color:var(--gray-500);line-height:1.6;margin-bottom:8px;">Not a chatbot. Not a bolt-on. Wingman is a staff member that runs the process. Omnichannel — SMS, WhatsApp, email, phone, voice. You set how far he goes. He works for you, not around you.</p>
+            <div class="slide-card"><h3>Omnichannel</h3><p>Talk to Wingman wherever you are — SMS, WhatsApp, Telegram, email, phone. Switch channels mid-conversation without losing context.</p></div>
+            <div class="slide-card"><h3>Proactive outreach</h3><p>Wingman reaches out to the right operators with the right trips. Handles document collection, status updates, and business intelligence.</p></div>
+            <div class="slide-card"><h3>Voice-driven</h3><p>Say what you need done. Update a trip, change a quote, check a status — no screen required.</p></div>
+            <div class="slide-card"><h3>Your rules</h3><p>You set the boundaries. Tell Wingman your pricing, your process, your preferences — he follows your playbook, not ours.</p></div>
+          </div>
+          <!-- RIGHT: Chat demo -->
+          <div style="background:#fff;border:1px solid var(--gray-200);border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.06);max-width:380px;">
+            <!-- Chat header -->
+            <div style="background:var(--blue);padding:16px 20px;display:flex;align-items:center;gap:10px;">
+              <div style="width:32px;height:32px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-chat-dots" style="color:#fff;font-size:16px;"></i></div>
+              <div><div style="color:#fff;font-weight:700;font-size:14px;">Wingman</div><div style="color:rgba(255,255,255,0.7);font-size:11px;">Online</div></div>
+            </div>
+            <!-- Chat messages -->
+            <div style="padding:20px;display:flex;flex-direction:column;gap:12px;background:var(--gray-50);min-height:320px;">
+              <!-- User message -->
+              <div style="align-self:flex-end;background:var(--blue);color:#fff;padding:10px 14px;border-radius:14px 14px 4px 14px;max-width:85%;font-size:13px;line-height:1.4;">
+                I need a jet from Miami to Aspen, Dec 20th, 4 passengers
+              </div>
+              <!-- Wingman reply -->
+              <div style="align-self:flex-start;background:#fff;color:var(--gray-900);padding:10px 14px;border-radius:14px 14px 14px 4px;max-width:85%;font-size:13px;line-height:1.4;border:1px solid var(--gray-200);">
+                I found <strong>3 operators</strong> with availability for MIA → ASE on Dec 20:<br><br>
+                <span style="color:var(--blue);font-weight:600;">1.</span> Citation X · $18,200 · ★★★★★<br>
+                <span style="color:var(--blue);font-weight:600;">2.</span> Challenger 300 · $24,500 · ★★★★★<br>
+                <span style="color:var(--blue);font-weight:600;">3.</span> Gulfstream G200 · $26,800 · ★★★★☆<br><br>
+                <span style="color:var(--gray-500);font-size:12px;">All operators are ARGUS rated. Want details on any of these?</span>
+              </div>
+              <!-- User reply -->
+              <div style="align-self:flex-end;background:var(--blue);color:#fff;padding:10px 14px;border-radius:14px 14px 4px 14px;max-width:85%;font-size:13px;line-height:1.4;">
+                Tell me more about the Citation X
+              </div>
+              <!-- Wingman reply -->
+              <div style="align-self:flex-start;background:#fff;color:var(--gray-900);padding:10px 14px;border-radius:14px 14px 14px 4px;max-width:85%;font-size:13px;line-height:1.4;border:1px solid var(--gray-200);">
+                <strong>SkyBridge Aviation</strong> — Citation X<br>
+                📍 Based KOPF · ARGUS Gold · 12yr safety record<br>
+                💰 $18,200 all-in · No fuel surcharges<br>
+                🕐 Available 6am–10pm departure<br><br>
+                <span style="color:var(--gray-500);font-size:12px;">Want me to hold this slot or keep looking?</span>
+              </div>
+            </div>
+            <!-- Chat input -->
+            <div style="padding:12px 16px;border-top:1px solid var(--gray-200);display:flex;gap:8px;align-items:center;background:#fff;">
+              <div style="flex:1;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:20px;padding:8px 14px;font-size:13px;color:var(--gray-400);">Ask Wingman anything...</div>
+              <div style="width:32px;height:32px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="bi bi-send-fill" style="color:#fff;font-size:14px;"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Charter Management -->
+    <div class="carousel-slide" style="background:var(--blue-light);position:relative;">
+      <div class="accent-bar accent-blue"></div>
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-clipboard-check"></i> <span class="fl-tag fl-live">Live</span></p>
+        <h2 class="slide-title">Charter Management</h2>
+        <p class="slide-sub">Every trip is different. Every process should be too. AI adapts to the type of trip you're running — collecting the right information, suggesting what's missing, managing the process end to end.</p>
+        <div class="slide-grid">
+          <div class="slide-card on-blue ai-highlight"><h3><span class="ai-icon orange"><i class="bi bi-stars"></i></span> Trip-specific intelligence</h3><p>AI tailors data collection to the exact trip type. Cargo is different from passenger. No one-size-fits-all forms.</p></div>
+          <div class="slide-card on-blue"><h3><span class="ai-icon blue"><i class="bi bi-mic"></i></span> Voice-driven management</h3><p>Update a trip, change a quote, check a status — say it and it happens. Any channel. No screen required.</p></div>
+          <div class="slide-card on-blue"><h3><span class="ai-icon blue"><i class="bi bi-search"></i></span> Find the right operator</h3><p>Wingman solicits bids from the right carriers, manages responses, and helps you compare — all within the conversation.</p></div>
+          <div class="slide-card on-blue"><h3><span class="ai-icon blue"><i class="bi bi-check2-all"></i></span> Nothing falls through</h3><p>If something's missing, Wingman suggests it. If a step is overdue, you'll know. The process stays on track.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Operator Tools -->
+    <div class="carousel-slide" style="background:#fff;position:relative;">
+      <div class="accent-bar accent-blue"></div>
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-speedometer2"></i> <span class="fl-tag fl-live">Live</span></p>
+        <h2 class="slide-title">Operator Tools</h2>
+        <p class="slide-sub">A voice-driven command centre. Say it, it happens. When AI can't act for you, it queues it so you can execute in one tap.</p>
+        <div class="slide-grid">
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-airplane"></i></span> Fleet management</h3><p>Your aircraft, availability, and pricing — one dashboard. Update status, set rates, manage crew.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-kanban"></i></span> Trip pipeline</h3><p>Every request, bid, and booking in one view. Track status, assign team, never lose a deal in email.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-geo-alt"></i></span> Multi-location</h3><p>Operating from multiple FBOs? See demand across all your bases. Route requests to the right location.</p></div>
+          <div class="slide-card ai-highlight"><h3><span class="ai-icon orange"><i class="bi bi-stars"></i></span> Suggested next actions</h3><p>AI flags what needs attention, suggests what to do next, and keeps critical tasks in front of you.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Empty Leg Exchange -->
+    <div class="carousel-slide" style="background:var(--blue-light);position:relative;">
+      <div class="accent-bar accent-blue"></div>
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-airplane"></i> <span class="fl-tag fl-live">Live</span></p>
+        <h2 class="slide-title">Empty Leg Exchange</h2>
+        <p class="slide-sub">AI suggests when to post, finds matches proactively, and advises on pricing using market analysis. Dead legs become live revenue.</p>
+        <div class="slide-grid">
+          <div class="slide-card on-blue"><h3><span class="ai-icon blue"><i class="bi bi-megaphone"></i></span> Smart posting</h3><p>Wingman suggests when to post empty legs and can do it for you. Or just ask — "post my empty leg from MIA to EYW Friday."</p></div>
+          <div class="slide-card on-blue ai-highlight"><h3><span class="ai-icon orange"><i class="bi bi-stars"></i></span> Proactive matching</h3><p>AI matches your empty legs with passenger demand automatically. When someone bites, you get notified.</p></div>
+          <div class="slide-card on-blue"><h3><span class="ai-icon blue"><i class="bi bi-currency-dollar"></i></span> Pricing guidance</h3><p>AI advises based on real demand data so you price competitively.</p></div>
+          <div class="slide-card on-blue"><h3><span class="ai-icon blue"><i class="bi bi-cart-check"></i></span> Direct booking</h3><p>Passengers browse your empty legs, see your aircraft, route, price. No broker involved.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Payments & Booking -->
+    <div class="carousel-slide" style="background:#fff;position:relative;">
+      <div class="accent-bar accent-blue"></div>
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-credit-card"></i> <span class="fl-tag fl-preview">Preview</span></p>
+        <h2 class="slide-title">Payments &amp; Booking</h2>
+        <p class="slide-sub">Getting paid should be easy. AI reviews customer history, suggests terms, and protects both sides.</p>
+        <div class="slide-grid">
+          <div class="slide-card ai-highlight"><h3><span class="ai-icon orange"><i class="bi bi-stars"></i></span> Credit intelligence</h3><p>AI reviews customer background and suggests payment terms. You decide how to handle each customer's credit.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-wallet2"></i></span> Digital checkout</h3><p>Quote, approve, pay — card, ACH, or wire. All tracked, all transparent.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-pen"></i></span> Contracts &amp; e-sign</h3><p>Charter agreements from templates. E-signature built in. No PDFs back and forth.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-safe"></i></span> Escrow protection</h3><p>Funds held until delivery confirmed. Both sides protected.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Safety & Compliance -->
+    <div class="carousel-slide" style="background:var(--blue-light);position:relative;">
+      <div class="accent-bar accent-blue"></div>
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-shield-check"></i> <span class="fl-tag fl-preview">Preview</span></p>
+        <h2 class="slide-title">Safety &amp; Compliance</h2>
+        <p class="slide-sub">AI-powered document processing and compliance review. Accredited operators get the visibility they deserve.</p>
+        <div class="slide-grid">
+          <div class="slide-card on-blue ai-highlight"><h3><span class="ai-icon orange"><i class="bi bi-stars"></i></span> Intelligent document processing</h3><p>AI collects, reviews, and validates certifications and insurance. Less manual review, more accuracy.</p></div>
+          <div class="slide-card on-blue"><h3><span class="ai-icon blue"><i class="bi bi-award"></i></span> ARGUS &amp; Wyvern</h3><p>Industry-standard safety ratings displayed on every operator profile. Trust is validated, not assumed.</p></div>
+          <div class="slide-card on-blue"><h3><span class="ai-icon blue"><i class="bi bi-eye"></i></span> Accreditation visibility</h3><p>Operators with the right credentials stand out. Safety isn't a checkbox — it's a competitive advantage.</p></div>
+          <div class="slide-card on-blue"><h3><span class="ai-icon blue"><i class="bi bi-star"></i></span> Two-way reviews</h3><p>Customers review operators. Operators review customers. The best rise to the top.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Cargo Intelligence -->
+    <div class="carousel-slide" style="background:var(--orange-light);position:relative;">
+      <div class="accent-bar accent-orange"></div>
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-box-seam"></i> <span class="fl-tag fl-coming">Coming Soon</span></p>
+        <h2 class="slide-title">Cargo Intelligence</h2>
+        <p class="slide-sub">Right plane, right space, right conditions. AI optimises cargo matching for both the operator and the customer.</p>
+        <div class="slide-grid">
+          <div class="slide-card coming-soon ai-highlight"><h3><span class="ai-icon orange"><i class="bi bi-stars"></i></span> Cargo validation</h3><p>AI validates weight, dimensions, hazmat, cold chain — before it reaches an operator.</p></div>
+          <div class="slide-card coming-soon"><h3><span class="ai-icon orange"><i class="bi bi-building"></i></span> Airport facility data</h3><p>Ramp access, ground equipment, customs capability — matched to the mission.</p></div>
+          <div class="slide-card coming-soon"><h3><span class="ai-icon orange"><i class="bi bi-calculator"></i></span> Cargo-specific pricing</h3><p>Weight-based, volume-based, or mission-based models that make sense for freight.</p></div>
+          <div class="slide-card coming-soon"><h3><span class="ai-icon orange"><i class="bi bi-file-earmark-text"></i></span> Full documentation</h3><p>Customs, hazmat classification, chain of custody — handled in the platform.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Market Intelligence -->
+    <div class="carousel-slide" style="background:var(--orange-light);position:relative;">
+      <div class="accent-bar accent-orange"></div>
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-graph-up"></i> <span class="fl-tag fl-coming">Coming Soon</span></p>
+        <h2 class="slide-title">Market Intelligence</h2>
+        <p class="slide-sub">Know what the market wants before your competitors do. Real data, not guesswork.</p>
+        <div class="slide-grid">
+          <div class="slide-card coming-soon ai-highlight"><h3><span class="ai-icon orange"><i class="bi bi-stars"></i></span> Demand trends</h3><p>AI surfaces which routes are heating up, which aircraft types are in demand, where passengers are looking.</p></div>
+          <div class="slide-card coming-soon"><h3><span class="ai-icon orange"><i class="bi bi-cash-stack"></i></span> Pricing signals</h3><p>Market-rate intelligence across routes and aircraft categories.</p></div>
+          <div class="slide-card coming-soon"><h3><span class="ai-icon orange"><i class="bi bi-trophy"></i></span> Bid performance</h3><p>Win rate, response time, conversion — what's working and where you're losing.</p></div>
+          <div class="slide-card coming-soon"><h3><span class="ai-icon orange"><i class="bi bi-bar-chart-line"></i></span> Revenue analytics</h3><p>Revenue by aircraft, route, customer type, time period. The full picture.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: I want to fly -->
+    <div class="carousel-slide" style="background:#fff;position:relative;">
+      <div class="accent-bar accent-blue"></div>
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-send" style="color:var(--blue);"></i></p>
+        <h2 class="slide-title">I want to fly.</h2>
+        <p class="slide-sub">Whether it's your first charter or your fiftieth, GoFlight makes it simple. Tell us where you want to go, when, and how many — Wingman handles the rest.</p>
+        <div class="slide-grid">
+          <div class="slide-card ai-highlight"><h3><span class="ai-icon orange"><i class="bi bi-stars"></i></span> Tell us what you need</h3><p>Route, dates, passengers, preferences. AI collects it and finds the right operators for you — instantly.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-list-check"></i></span> Compare real bids</h3><p>Operators compete for your trip. You see aircraft, pricing, safety ratings, and reviews — transparently.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-shield-check"></i></span> Book with confidence</h3><p>Every operator is verified. Safety ratings displayed. Payments protected. No surprises.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-heart"></i></span> Your relationship</h3><p>Found an operator you love? Book direct next time. GoFlight builds connections, not dependency.</p></div>
+        </div>
+        <p style="margin-top:32px;text-align:center;"><a onclick="goToSlide(14);return false;" href="#" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;background:var(--orange);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15px;"><i class="bi bi-door-open"></i> Request Access</a></p>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: I'm an operator -->
+    <div class="carousel-slide" style="background:var(--gray-50);position:relative;">
+      <div class="accent-bar accent-blue"></div>
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-airplane-engines" style="color:var(--blue);"></i></p>
+        <h2 class="slide-title">I'm an operator.</h2>
+        <p class="slide-sub">GoFlight brings you qualified demand — real trip requests matched to your fleet. No cold calls. No board-watching. Wingman works for you, not around you.</p>
+        <div class="slide-grid">
+          <div class="slide-card ai-highlight"><h3><span class="ai-icon orange"><i class="bi bi-stars"></i></span> Demand finds you</h3><p>AI matches trips to your aircraft, location, and capabilities. Notified in your preferred channel.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-tag"></i></span> You set the price</h3><p>Competitive bidding on your terms. Win on service, speed, and merit — not on who pays the highest commission.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-people"></i></span> Own your customer</h3><p>No middleman. The relationship is yours from first bid to repeat booking.</p></div>
+          <div class="slide-card"><h3><span class="ai-icon blue"><i class="bi bi-airplane"></i></span> Fill empty legs</h3><p>AI suggests when to post, finds matches proactively, and advises on pricing. Dead legs become revenue.</p></div>
+        </div>
+        <p style="margin-top:32px;text-align:center;"><a onclick="goToSlide(14);return false;" href="#" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;background:var(--orange);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15px;"><i class="bi bi-door-open"></i> Request Access</a></p>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: I'm moving cargo -->
+    <div class="carousel-slide" style="background:var(--orange-light);position:relative;">
+      <div class="accent-bar accent-orange"></div>
+      <div class="inner">
+        <p class="slide-label"><i class="bi bi-box-seam" style="color:var(--orange);"></i></p>
+        <h2 class="slide-title">I'm moving cargo.</h2>
+        <p class="slide-sub">Right plane, right space, right conditions. GoFlight matches your cargo to the right operator — validating everything before it reaches anyone.</p>
+        <div class="slide-grid">
+          <div class="slide-card coming-soon ai-highlight"><h3><span class="ai-icon orange"><i class="bi bi-stars"></i></span> Cargo-first matching</h3><p>AI finds operators with the right aircraft, cargo doors, and ground equipment for your shipment.</p></div>
+          <div class="slide-card coming-soon"><h3><span class="ai-icon orange"><i class="bi bi-clipboard-check"></i></span> Validated before quoting</h3><p>Weight, dimensions, hazmat class, temperature — all validated upfront. No surprises at the ramp.</p></div>
+          <div class="slide-card coming-soon"><h3><span class="ai-icon orange"><i class="bi bi-file-earmark-text"></i></span> Full documentation</h3><p>Customs, hazmat classification, chain of custody — handled in the platform.</p></div>
+          <div class="slide-card coming-soon"><h3><span class="ai-icon orange"><i class="bi bi-calculator"></i></span> Pricing that makes sense</h3><p>Weight-based, volume-based, or mission-based. Not passenger pricing forced onto freight.</p></div>
+        </div>
+        <p style="margin-top:32px;text-align:center;"><a onclick="goToSlide(14);return false;" href="#" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:50px;background:var(--orange);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15px;"><i class="bi bi-door-open"></i> Request Access</a></p>
+      </div>
+    </div>
+
+    <!-- SLIDE 13: Our Vision -->
+    <div class="carousel-slide" style="background:var(--blue-light);">
+      <div class="inner" style="text-align:center;"  id="vision">
+        <p style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:2.5px;color:var(--blue);margin-bottom:24px;">Our Vision</p>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(24px,3.5vw,36px);color:var(--gray-900);margin-bottom:24px;">The airplane didn't shrink the world.<br>The people of aviation did.</h2>
+        <p style="font-size:17px;color:#4b5563;line-height:1.7;max-width:720px;margin:0 auto 16px;">It's a big community — people of many talents and disciplines, blending their skills into something the rest of the world simply calls a flight.</p>
+        <p style="font-size:17px;color:#4b5563;line-height:1.7;max-width:720px;margin:0 auto 16px;">GoFlight is being built with the people doing this work, and for everyone who depends on them. Not around them. With them.</p>
+        <p style="font-size:17px;color:#4b5563;line-height:1.7;max-width:720px;margin:0 auto;">We think the work can be done easier, faster, better, and more fun. The industry has barriers we can remove — complexity to simplify, innovations still to implement, and tools that finally maximize the people using them.</p>
+        <p style="margin-top:28px;"><a onclick="goToSlide(14);return false;" href="#" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:24px;color:var(--blue);">Together. →</a></p>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: Early Access -->
+    <div class="carousel-slide" style="background:#fff;">
+      <div class="inner" style="text-align:center;" id="early-access">
+        <p style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:2.5px;color:var(--gray-400);margin-bottom:16px;">Private Preview</p>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(22px,3vw,32px);color:var(--gray-900);margin-bottom:16px;">We're building this right.</h3>
+        <p style="font-size:17px;color:var(--gray-500);line-height:1.6;max-width:540px;margin:0 auto 16px;">GoFlight is in private preview — because we want to build this right from the beginning. Trials are open now, and we're selectively partnering with operators, brokers, and corporate customers who want to grow with us from the start.</p>
+        <p style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:20px;color:var(--gray-900);margin-bottom:32px;">This isn't a waitlist. It's an invitation.</p>
+
+        <div class="gate-grid">
+          <div class="gate-card">
+            <h2>Request Early Access</h2>
+            <p class="gate-desc">Be first in line when we open the doors.</p>
+            <div class="gate-fields">
+              <input type="text" id="ea-name" placeholder="Your name" autocomplete="name">
+              <input type="email" id="ea-email" placeholder="your@email.com" autocomplete="email">
+            </div>
+            <button class="btn-orange" onclick="submitAccess()">Request Access</button>
+            <div class="form-msg" id="ea-msg"></div>
+          </div>
+          <div class="gate-card">
+            <h2>Have an access code?</h2>
+            <p class="gate-desc">Enter your code to access the platform.</p>
+            <div class="code-row">
+              <input type="text" id="ac-code" placeholder="Enter access code" autocomplete="off">
+              <button class="btn-outline" onclick="submitCode()">Enter</button>
+            </div>
+            <div class="form-msg" id="ac-msg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end carousel-track -->
+  <div class="carousel-dots" id="carousel-dots"></div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  &copy; 2026 GoFlight.ai. All rights reserved.<br>
+  <a href="mailto:hello@goflight.ai">hello@goflight.ai</a>
+</footer>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script>
+// ─── CAROUSEL ───
+let currentSlide = 0;
+const track = document.getElementById('carousel-track');
+const slides = track.querySelectorAll('.carousel-slide');
+const dotsContainer = document.getElementById('carousel-dots');
+const flRows = document.querySelectorAll('.fl-row[data-slide]');
+
+// Build dots
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => goToSlide(i);
+  dotsContainer.appendChild(dot);
+});
+
+function goToSlide(i) {
+  currentSlide = Math.max(0, Math.min(i, slides.length - 1));
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  // Update dots
+  dotsContainer.querySelectorAll('.carousel-dot').forEach((d, j) => {
+    d.classList.toggle('active', j === currentSlide);
+  });
+  // Highlight active feature row
+  flRows.forEach((row, j) => {
+    row.style.background = (j === currentSlide) ? 'var(--blue-light)' : '';
+  });
+}
+
+function carouselMove(dir) { goToSlide(currentSlide + dir); }
+
+// Click feature list → jump to slide + scroll
+flRows.forEach(row => {
+  row.addEventListener('click', () => {
+    const idx = parseInt(row.dataset.slide);
+    goToSlide(idx);
+    document.getElementById('feature-carousel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ─── TOUCH SWIPE ───
+let touchStartX = 0;
+let touchEndX = 0;
+const carouselWrap = document.getElementById('feature-carousel');
+
+carouselWrap.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+carouselWrap.addEventListener('touchend', (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  const diff = touchStartX - touchEndX;
+  if (Math.abs(diff) > 50) {
+    carouselMove(diff > 0 ? 1 : -1);
+  }
+}, { passive: true });
+
+// ─── FORMS ───
+const VALID_CODES = ['SDC2026', 'GOFLIGHT', 'WINGMAN', 'BETA2026', 'CHARTER'];
+const API_URL = 'https://nmv5m59txi.execute-api.us-east-1.amazonaws.com/add-note';
+
+async function submitAccess() {
+  const name = document.getElementById('ea-name').value.trim();
+  const email = document.getElementById('ea-email').value.trim();
+  const msg = document.getElementById('ea-msg');
+  if (!name) { msg.className = 'form-msg error'; msg.textContent = 'Please enter your name.'; return; }
+  if (!email || !email.includes('@')) { msg.className = 'form-msg error'; msg.textContent = 'Please enter a valid email.'; return; }
+  const waitlist = JSON.parse(localStorage.getItem('gf-waitlist') || '[]');
+  waitlist.push({ name, email, timestamp: new Date().toISOString() });
+  localStorage.setItem('gf-waitlist', JSON.stringify(waitlist));
+  try {
+    await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ taskId: 'WAITLIST', agentId: 'website', note: `Early access request: ${name} (${email})` })
+    });
+  } catch (e) { /* silent */ }
+  msg.className = 'form-msg success';
+  msg.textContent = "You're on the list. We'll be in touch.";
+}
+
+function submitCode() {
+  const code = document.getElementById('ac-code').value.trim().toUpperCase();
+  const msg = document.getElementById('ac-msg');
+  if (VALID_CODES.includes(code)) {
+    msg.className = 'form-msg success'; msg.textContent = 'Access granted. Redirecting...';
+    setTimeout(() => { window.location.href = 'https://dev.goflight.ai'; }, 1200);
+  } else {
+    msg.className = 'form-msg error'; msg.textContent = 'Invalid code. Check your invite email.';
+  }
+}
+</script>
+
+</body>
+</html>
