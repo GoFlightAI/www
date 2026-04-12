@@ -597,8 +597,13 @@ async function submitAccess() {
   const name = document.getElementById('ea-name').value.trim();
   const email = document.getElementById('ea-email').value.trim();
   const msg = document.getElementById('ea-msg');
+  const btn = document.querySelector('.gate-card .btn-orange');
   if (!name) { msg.className = 'form-msg error'; msg.textContent = 'Please enter your name.'; return; }
   if (!email || !email.includes('@')) { msg.className = 'form-msg error'; msg.textContent = 'Please enter a valid email.'; return; }
+
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+  btn.textContent = 'Submitting...';
 
   const taskId = 'EA-' + Date.now();
   const now = new Date().toISOString();
@@ -617,11 +622,21 @@ async function submitAccess() {
       })
     });
     if (!res.ok) throw new Error('API error');
+    // Set to AWAITING_REVIEW so it hits the human gate
+    await fetch(API_BASE + '/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ taskId: taskId, status: 'AWAITING_REVIEW' })
+    });
     msg.className = 'form-msg success';
     msg.textContent = "You're on the list. We'll be in touch.";
+    btn.textContent = 'Submitted';
   } catch (e) {
     msg.className = 'form-msg error';
     msg.textContent = 'Something went wrong. Please email hello@goflight.ai instead.';
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.textContent = 'Request Access';
   }
 }
 
