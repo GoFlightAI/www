@@ -591,7 +591,7 @@ flRows.forEach(row => {
 
 // ─── FORMS ───
 const VALID_CODES = ['SDC2026', 'GOFLIGHT', 'WINGMAN', 'BETA2026', 'CHARTER'];
-const API_URL = 'https://nmv5m59txi.execute-api.us-east-1.amazonaws.com/add-note';
+const API_BASE = 'https://nmv5m59txi.execute-api.us-east-1.amazonaws.com';
 
 async function submitAccess() {
   const name = document.getElementById('ea-name').value.trim();
@@ -599,16 +599,30 @@ async function submitAccess() {
   const msg = document.getElementById('ea-msg');
   if (!name) { msg.className = 'form-msg error'; msg.textContent = 'Please enter your name.'; return; }
   if (!email || !email.includes('@')) { msg.className = 'form-msg error'; msg.textContent = 'Please enter a valid email.'; return; }
-  const waitlist = JSON.parse(localStorage.getItem('gf-waitlist') || '[]');
-  waitlist.push({ name, email, timestamp: new Date().toISOString() });
-  localStorage.setItem('gf-waitlist', JSON.stringify(waitlist));
+
+  const taskId = 'EA-' + Date.now();
+  const now = new Date().toISOString();
+
   try {
-    await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ taskId: 'WAITLIST', agentId: 'website', note: `Early access request: ${name} (${email})` })
+    const res = await fetch(API_BASE + '/tasks', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: taskId,
+        title: 'Early access request: ' + name,
+        description: 'Early access request from www.goflight.ai\n\nName: ' + name + '\nEmail: ' + email + '\nSubmitted: ' + now + '\n\nThis person requested early access to the GoFlight platform via the landing page. Reach out and onboard if appropriate.',
+        category: 'manual',
+        priority: 'P2',
+        acceptance: ['Contact the requester', 'Onboard or respond with timeline'],
+      })
     });
-  } catch (e) { /* silent */ }
-  msg.className = 'form-msg success';
-  msg.textContent = "You're on the list. We'll be in touch.";
+    if (!res.ok) throw new Error('API error');
+    msg.className = 'form-msg success';
+    msg.textContent = "You're on the list. We'll be in touch.";
+  } catch (e) {
+    msg.className = 'form-msg error';
+    msg.textContent = 'Something went wrong. Please email hello@goflight.ai instead.';
+  }
 }
 
 function submitCode() {
