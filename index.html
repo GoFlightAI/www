@@ -898,7 +898,9 @@ footer a:hover { color: var(--navy); }
 </footer>
 
 <script>
-function submitContact() {
+const CONTACT_API = 'https://8pm6qmjog0.execute-api.us-east-1.amazonaws.com/contact';
+
+async function submitContact() {
   const name = document.getElementById('ap-name').value.trim();
   const email = document.getElementById('ap-email').value.trim();
   const role = document.getElementById('ap-role').value;
@@ -909,38 +911,27 @@ function submitContact() {
   if (!name) { msg.className = 'form-msg error'; msg.textContent = 'Please enter your name.'; return; }
   if (!email || !email.includes('@')) { msg.className = 'form-msg error'; msg.textContent = 'Please enter a valid email.'; return; }
 
-  const roleLabel = {
-    operator: 'An operator (runs aircraft)',
-    broker: 'A broker',
-    passenger: 'A passenger / charter customer',
-    fbo: 'FBO / ground / vendor',
-    press: 'Press / advisor / investor',
-    other: 'Something else'
-  }[role] || '(not specified)';
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  msg.className = 'form-msg';
+  msg.textContent = '';
 
-  const isOperator = role === 'operator';
-  const subject = (isOperator ? 'Operator inquiry from ' : 'Hello from ') + name;
-  const body =
-    'Hi GoFlight team,\n\n' +
-    'I came in through www.goflight.ai and wanted to get in touch.\n\n' +
-    '— — —\n' +
-    'Name:    ' + name + '\n' +
-    'Email:   ' + email + '\n' +
-    'Role:    ' + roleLabel + '\n' +
-    'Context: ' + (context || '(none)') + '\n' +
-    '— — —\n\n' +
-    '[Add anything else you\'d like to say here]\n\n' +
-    'Thanks,\n' + name + '\n';
-
-  const mailto = 'mailto:hello@goflight.ai'
-    + '?subject=' + encodeURIComponent(subject)
-    + '&body=' + encodeURIComponent(body)
-    + '&cc=' + encodeURIComponent(email);
-
-  msg.className = 'form-msg success';
-  msg.innerHTML = "Opening your mail client… if it doesn't open, email <a href=\"mailto:hello@goflight.ai\">hello@goflight.ai</a> directly.";
-  btn.textContent = 'Opened';
-  window.location.href = mailto;
+  try {
+    const res = await fetch(CONTACT_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, role, context }),
+    });
+    if (!res.ok) throw new Error('http ' + res.status);
+    msg.className = 'form-msg success';
+    msg.textContent = "Thanks. We've got it and will be in touch within two business days.";
+    btn.textContent = 'Sent';
+  } catch (e) {
+    msg.className = 'form-msg error';
+    msg.innerHTML = 'Something broke on our side. Please email <a href="mailto:hello@goflight.ai">hello@goflight.ai</a> instead.';
+    btn.disabled = false;
+    btn.textContent = 'Send';
+  }
 }
 </script>
 
