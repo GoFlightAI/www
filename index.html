@@ -73,6 +73,19 @@ section:first-of-type { border-top: none; }
   padding: 6px 4px;
 }
 .top-chrome .nav-mid a:hover { color: var(--navy); }
+.top-chrome .top-right {
+  display: flex; align-items: center; gap: 10px;
+}
+.top-chrome .hiring {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold);
+  padding: 8px 14px; border-radius: 4px;
+  background: var(--gold-soft);
+  border: 1px solid #f0e2c0;
+}
+.top-chrome .hiring:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
 .top-chrome .signin {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px; font-weight: 600;
@@ -142,8 +155,18 @@ section:first-of-type { border-top: none; }
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--navy);
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
+.hero .tagline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(13px, 1.3vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-body);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+.hero .tagline strong { color: var(--navy); font-weight: 700; }
 .hero-lede {
   font-size: clamp(17px, 1.6vw, 18px);
   color: var(--text-body);
@@ -431,6 +454,26 @@ section.scene .sec-head .idx .label { color: var(--sky); }
   font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
   text-transform: uppercase; color: var(--navy); margin-bottom: 4px;
 }
+.free-band {
+  background: linear-gradient(135deg, var(--sky-light) 0%, #F5FAFF 100%);
+  border: 1px solid #CCDFEE;
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+}
+.free-cols {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 28px; align-items: center;
+}
+.free-divider { width: 1px; height: 40px; background: #CCDFEE; }
+.free-col .free-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 6px;
+}
+.free-col .free-text { font-size: 14px; color: var(--navy); line-height: 1.5; }
+.free-col .free-text strong { font-weight: 700; }
 .locked-rate {
   margin-top: 28px; padding: 20px 24px;
   background: var(--gold-soft);
@@ -593,6 +636,8 @@ footer a:hover { color: var(--navy); }
   .sec-head { grid-template-columns: 1fr; gap: 8px; align-items: start; }
   .sec-head .idx { order: -1; }
   .build-grid, .pricing { grid-template-columns: 1fr; gap: 14px; }
+  .free-cols { grid-template-columns: 1fr; gap: 18px; }
+  .free-divider { display: none; }
   .scene-stack { gap: 28px; }
   .aud-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -624,7 +669,10 @@ footer a:hover { color: var(--navy); }
       <a href="#pricing">Pricing</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a href="https://dev.goflight.ai" class="signin">Sign in</a>
+    <div class="top-right">
+      <a href="/join.html" class="hiring">We're hiring →</a>
+      <a href="https://dev.goflight.ai" class="signin">Sign in</a>
+    </div>
   </div>
 </div>
 
@@ -637,7 +685,8 @@ footer a:hover { color: var(--navy); }
         <span class="eyebrow-pill">Welcome to GoFlight</span>
         <h1>Hire <span class="accent">Flyn</span>.</h1>
         <p class="display-2">An operations teammate for charter.</p>
-        <p class="hero-lede">GoFlight is a charter platform built around <span class="flyn">Flyn</span>, an always-on teammate that handles the coordination behind every trip — quoting, vendor follow-up, document collection, status updates — so the people who keep aviation moving can spend more time with the people they fly.</p>
+        <p class="tagline">Free quoting. Free ops. Free marketplace. <strong><span class="flyn">Flyn</span> does the rest.</strong></p>
+        <p class="hero-lede">GoFlight is a charter platform built around <span class="flyn">Flyn</span>, an always-on teammate that handles the coordination behind every trip — vendor follow-up, document collection, status updates — so the people who keep aviation moving can spend more time with the people they fly.</p>
         <div class="hero-ctas">
           <a href="#contact" class="btn btn-primary">Get in touch</a>
           <a href="#building" class="btn btn-outline">See what we're building</a>
@@ -781,6 +830,19 @@ footer a:hover { color: var(--navy); }
     <div class="sec-head">
       <h2>How we charge.</h2>
       <span class="idx"><span class="num">05</span> · <span class="label">Pricing</span></span>
+    </div>
+    <div class="free-band">
+      <div class="free-cols">
+        <div class="free-col">
+          <div class="free-label">Free</div>
+          <div class="free-text"><strong>Quoting. Ops. Marketplace.</strong> The workflow tools that get you through the day — no charge, no asterisk.</div>
+        </div>
+        <div class="free-divider"></div>
+        <div class="free-col">
+          <div class="free-label">Paid</div>
+          <div class="free-text"><strong><span class="flyn">Flyn</span> — the teammate that does the work.</strong> Pricing below.</div>
+        </div>
+      </div>
     </div>
     <div class="pricing">
       <div class="price-card">

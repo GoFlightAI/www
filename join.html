@@ -219,6 +219,43 @@ section.hero { border-top: none; }
   color: var(--text-body);
 }
 
+/* ─── BUILD + PROCESS SHARED ─── */
+.section-intro {
+  font-size: 16px; line-height: 1.65;
+  color: var(--text-body);
+  margin-bottom: 28px;
+  max-width: 760px;
+}
+.process-list { list-style: none; display: grid; gap: 14px; }
+.process-list li {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 22px 26px;
+  display: flex; gap: 22px; align-items: flex-start;
+  box-shadow: 0 4px 20px -8px rgba(10, 37, 64, 0.06);
+}
+.process-list .step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+  padding-top: 2px;
+  min-width: 26px;
+}
+.process-list h4 {
+  font-size: 17px; font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+.process-list p {
+  font-size: 14px; line-height: 1.55;
+  color: var(--text-body);
+}
+
 /* ─── FORM ─── */
 section.apply { background: var(--bg-alt); border-top: 1px solid var(--rule); }
 .form-card {
@@ -379,7 +416,7 @@ footer a:hover { color: var(--navy); }
   <div class="wrap">
     <span class="eyebrow">Founding Engineer · Full-stack</span>
     <h1>Hire <span class="accent">Flyn</span>.<br>Build <span class="accent">Flyn</span>.</h1>
-    <p class="lede">We're building <span class="flyn">Flyn</span> — an AI operations teammate for charter aviation operators. Mid-size operators (10–30 aircraft) are drowning in coordination work their tools can't do. Flyn handles the busywork. We need a sharp full-stack generalist to co-build it.</p>
+    <p class="lede">We're building GoFlight — an operations platform for mid-size US charter operators (10–30 aircraft). The free layer (quoting, ops, marketplace) builds the audience. <span class="flyn">Flyn</span>, the personalized AI teammate, is the paid product that does the busywork operators are drowning in. We need a sharp full-stack generalist to co-build it.</p>
     <div class="hero-ctas">
       <a href="#apply" class="btn btn-primary">Apply</a>
       <a href="#need" class="btn btn-outline">See what we need</a>
@@ -452,6 +489,94 @@ footer a:hover { color: var(--navy); }
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══ WHAT YOU'D BUILD ═══ -->
+<section id="build">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>What you'd build.</h2>
+      <span class="idx"><span class="num">03</span> · <span class="label">The Work</span></span>
+    </div>
+    <p class="section-intro">Four surfaces, all live or being shaped now. You'd own pieces of each as trust builds.</p>
+    <div class="need-grid">
+      <div class="need-card">
+        <span class="num">·</span>
+        <div>
+          <h4>The free layer.</h4>
+          <p>RFQ management, bid tracking, trip operations, document checklists, and a two-sided marketplace for trading trips between operators. Direct alternative to Avinode's $1,500/month entry tier.</p>
+        </div>
+      </div>
+      <div class="need-card">
+        <span class="num">·</span>
+        <div>
+          <h4><span class="flyn">Flyn</span> — the personalized teammate.</h4>
+          <p>Per-operator memories. Deterministic workflows per business process. Guided onboarding. Background "dreaming" that consolidates and prunes what Flyn knows so it stays sharp. Multi-model: Claude, GPT, Gemini, DeepSeek — swappable.</p>
+        </div>
+      </div>
+      <div class="need-card">
+        <span class="num">·</span>
+        <div>
+          <h4>Omnichannel coordination.</h4>
+          <p>Messages out under your team's name across SMS, WhatsApp, email, and voice (Telnyx SIP). The customer never sees Flyn — just a team that got faster.</p>
+        </div>
+      </div>
+      <div class="need-card">
+        <span class="num">·</span>
+        <div>
+          <h4>Payments, compliance, fleet, crew.</h4>
+          <p>Stripe checkout, safety + compliance display, fleet and crew tools. AWS Lambda + DynamoDB, shipped weekly straight to main.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE PROCESS ═══ -->
+<section id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>The process.</h2>
+      <span class="idx"><span class="num">04</span> · <span class="label">How to Hire</span></span>
+    </div>
+    <ol class="process-list">
+      <li>
+        <span class="step-num">01</span>
+        <div>
+          <h4>Apply.</h4>
+          <p>The form below. Portfolio + the most interesting thing you've shipped with AI. We read every one.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">02</span>
+        <div>
+          <h4>Async technical screen.</h4>
+          <p>We send you a real GoFlight spec. You build it on your own time. Use whatever AI tools you want.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">03</span>
+        <div>
+          <h4>45-minute conversation with Jack.</h4>
+          <p>Walk through your work, talk about GoFlight, mutual gut check.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">04</span>
+        <div>
+          <h4>Paid 2-week trial.</h4>
+          <p>Real tasks from the backlog. We see how we work together before either of us commits.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">05</span>
+        <div>
+          <h4>Offer.</h4>
+          <p>Equity paperwork, IP assignment, go.</p>
+        </div>
+      </li>
+    </ol>
   </div>
 </section>
 
