@@ -609,8 +609,25 @@ footer a:hover { color: var(--navy); }
 
         <div class="form-row">
           <div class="field">
+            <label for="f-aviation">Aviation experience — especially Part 135 private aviation</label>
+            <textarea id="f-aviation" name="aviation" placeholder="Any operator, broker, FBO, dispatch, pilot, or vendor experience? Part 135 charter exposure? Say 'none' if none — that's a fine answer." required></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
             <label for="f-interesting">What's the most interesting thing you've shipped with AI?</label>
             <textarea id="f-interesting" name="interesting" placeholder="A few sentences. What it does, what you built, what was hard." required></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="f-comp">Compensation expectations</label>
+            <input type="text" id="f-comp" name="comp" placeholder="e.g. $X base + Y% equity, or 'equity-heavy, open to talk'" required>
+            <div class="help">
+              Straight talk: we're pre-revenue and on a shoestring. This is a founding role, not a salaried seat. We're looking for someone who wants to <em>build</em> something — equity-heavy is preferred, cash is real but lean. If you need a stable $100k+ base from day one, this isn't the right fit and we don't want to waste your time. Tell us what you actually need to make this work.
+            </div>
           </div>
         </div>
 
@@ -681,20 +698,28 @@ form.addEventListener('submit', async (e) => {
   const name = document.getElementById('f-name').value.trim();
   const email = document.getElementById('f-email').value.trim();
   const portfolio = document.getElementById('f-portfolio').value.trim();
+  const aviation = document.getElementById('f-aviation').value.trim();
   const interesting = document.getElementById('f-interesting').value.trim();
+  const comp = document.getElementById('f-comp').value.trim();
   const resumeFile = document.getElementById('f-resume').files[0];
 
   if (!name) return setError('Please enter your name.');
   if (!email || !email.includes('@')) return setError('Please enter a valid email.');
   if (!portfolio || !/^https?:\/\//i.test(portfolio)) return setError('Portfolio URL must start with http(s)://');
+  if (!aviation) return setError('Tell us about your aviation experience (or write "none").');
   if (!interesting || interesting.length < 20) return setError('Tell us a bit more about what you shipped (at least a couple of sentences).');
+  if (!comp) return setError('Please share your compensation expectations (a ballpark is fine).');
   if (resumeFile && resumeFile.size > MAX_RESUME_BYTES) return setError('Resume is too big (max 4 MB).');
 
   btn.disabled = true;
   btn.textContent = 'Sending…';
 
   try {
-    const payload = { name, email, portfolio, interesting };
+    const combined =
+      `Compensation expectations: ${comp}\n\n` +
+      `Aviation / Part 135 experience:\n${aviation}\n\n` +
+      `---\n\nMost interesting thing shipped with AI:\n${interesting}`;
+    const payload = { name, email, portfolio, interesting: combined };
     if (resumeFile) {
       payload.resume = {
         filename: resumeFile.name,
