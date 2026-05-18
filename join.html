@@ -285,14 +285,14 @@ section.apply { background: var(--bg-alt); border-top: 1px solid var(--rule); }
   margin-bottom: 28px;
   line-height: 1.55;
 }
-.form-row { display: grid; gap: 16px; }
+.form-row { display: grid; gap: 20px; }
 .form-row.two { grid-template-columns: 1fr 1fr; }
-.form-row + .form-row { margin-top: 16px; }
+.form-row + .form-row { margin-top: 24px; }
 .field label {
   display: block;
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--text-body); margin-bottom: 6px;
+  text-transform: uppercase; color: var(--text-body); margin-bottom: 8px;
 }
 .field label .opt { color: var(--text-muted); font-weight: 500; }
 .field input, .field textarea {
@@ -315,8 +315,9 @@ section.apply { background: var(--bg-alt); border-top: 1px solid var(--rule); }
 }
 .field .help {
   font-size: 12px; color: var(--text-muted);
-  margin-top: 6px; line-height: 1.4;
+  margin-top: 10px; line-height: 1.55;
 }
+.field .help p + p { margin-top: 8px; }
 .form-card .btn { margin-top: 28px; width: 100%; justify-content: center; padding: 16px 24px; font-size: 16px; }
 .form-msg { margin-top: 14px; font-size: 14px; min-height: 1em; font-weight: 500; line-height: 1.5; }
 .form-msg.error { color: var(--danger); }
@@ -415,7 +416,7 @@ footer a:hover { color: var(--navy); }
 <section class="hero" id="top">
   <div class="wrap">
     <span class="eyebrow">Founding Engineer · Full-stack</span>
-    <h1>Hire <span class="accent">Flyn</span>.<br>Build <span class="accent">Flyn</span>.</h1>
+    <h1>Build <span class="accent">Flyn</span>.</h1>
     <p class="lede">We're building GoFlight — an operations platform for mid-size US charter operators (10–30 aircraft). The free layer (quoting, ops, marketplace) builds the audience. <span class="flyn">Flyn</span>, the personalized AI teammate, is the paid product that does the busywork operators are drowning in. We need a sharp full-stack generalist to co-build it.</p>
     <div class="hero-ctas">
       <a href="#apply" class="btn btn-primary">Apply</a>
@@ -626,7 +627,9 @@ footer a:hover { color: var(--navy); }
             <label for="f-comp">Compensation expectations</label>
             <input type="text" id="f-comp" name="comp" placeholder="e.g. $X base + Y% equity, or 'equity-heavy, open to talk'" required>
             <div class="help">
-              Straight talk: we're pre-revenue and on a shoestring. This is a founding role, not a salaried seat. We're looking for someone who wants to <em>build</em> something — equity-heavy is preferred, cash is real but lean. If you need a stable $100k+ base from day one, this isn't the right fit and we don't want to waste your time. Tell us what you actually need to make this work.
+              <p>A bit of straight talk, because your time is valuable: we're pre-revenue and operating on a shoestring. This is a founding role, not a salaried seat — equity-heavy is what we can offer, and cash will be lean for a while.</p>
+              <p>If a stable six-figure base from day one is what you need right now, we completely understand — this just isn't the right fit, and we'd rather say so up front than waste your runway.</p>
+              <p>If you're energized by building something from zero, tell us what you'd need to make it work and we'll have an honest conversation.</p>
             </div>
           </div>
         </div>
