@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — GoFlight</title>
+<meta name="description" content="GoFlight Privacy Policy — how we collect, use, and protect your data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─── */
+:root {
+  --navy: #0A2540;
+  --sky: #2E75B6;
+  --sky-light: #EBF5FF;
+  --gold: #C5962A;
+  --gold-soft: #FFF5E6;
+  --success: #00D4AA;
+  --text-body: #425466;
+  --bg: #FAFBFC;
+  --rule: #E6EAF0;
+  --rule-soft: #F0F3F7;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--navy);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+a { color: var(--sky); text-decoration: none; }
+a:hover { color: var(--navy); }
+img { max-width: 100%; display: block; }
+
+/* ─── TYPE ATOMS ─── */
+h1, h2, h3 { font-weight: 800; color: var(--navy); letter-spacing: -0.025em; }
+
+/* ─── LAYOUT ─── */
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+/* ─── TOP CHROME BAR ─── */
+.top-chrome {
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule-soft);
+  padding: 14px 0;
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(8px);
+  background: rgba(250, 251, 252, 0.94);
+}
+.top-chrome .wrap {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+}
+.top-chrome .brand {
+  font-weight: 800; font-size: 19px;
+  letter-spacing: -0.02em; color: var(--navy);
+}
+.top-chrome .nav-mid {
+  display: flex; gap: 24px; justify-content: center;
+}
+.top-chrome .nav-mid a {
+  font-size: 14px; font-weight: 500; color: var(--text-body);
+  padding: 6px 4px;
+}
+.top-chrome .nav-mid a:hover { color: var(--navy); }
+.top-chrome .top-right {
+  display: flex; align-items: center; gap: 10px;
+}
+.top-chrome .signin {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--navy);
+  padding: 8px 14px; border-radius: 4px;
+  background: var(--sky-light);
+}
+.top-chrome .signin:hover { background: var(--navy); color: #fff; }
+
+/* ─── LEGAL PAGE LAYOUT ─── */
+.legal-page {
+  padding: 64px 0 96px;
+}
+.legal-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-body);
+  margin-bottom: 40px;
+  transition: color 0.15s;
+}
+.back-link:hover { color: var(--navy); }
+
+.page-title {
+  font-size: clamp(36px, 6vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--navy);
+  margin-bottom: 32px;
+}
+
+/* ─── BETA BANNER ─── */
+.beta-banner {
+  background: var(--gold-soft);
+  border: 1px solid #f0e2c0;
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 48px;
+  font-size: 14px;
+  color: var(--navy);
+  line-height: 1.6;
+}
+.beta-banner strong {
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* ─── LEGAL CONTENT ─── */
+.legal-content {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text-body);
+}
+.legal-content h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin: 48px 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.legal-content h2:first-child { margin-top: 0; }
+.legal-content p {
+  margin-bottom: 14px;
+}
+.legal-content p:last-child { margin-bottom: 0; }
+.legal-content ul, .legal-content ol {
+  margin: 12px 0 16px 24px;
+}
+.legal-content li {
+  margin-bottom: 8px;
+  line-height: 1.65;
+}
+.legal-content li strong {
+  color: var(--navy);
+  font-weight: 600;
+}
+.legal-content a {
+  color: var(--sky);
+}
+.legal-content a:hover {
+  color: var(--navy);
+}
+.legal-content .highlight-box {
+  background: var(--sky-light);
+  border: 1px solid #c8dff2;
+  border-left: 4px solid var(--sky);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  font-size: 15px;
+}
+.legal-content .highlight-box h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.legal-content .highlight-box ul {
+  margin: 8px 0 0 20px;
+}
+.legal-content .sms-section {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin: 0 0 8px;
+}
+.legal-content .sms-section p { margin-bottom: 12px; }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 36px 0 48px;
+  background: var(--bg);
+  border-top: 1px solid var(--rule);
+}
+footer .wrap {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 32px;
+  align-items: center;
+}
+footer .col {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-body);
+}
+footer .col.center { text-align: center; }
+footer .col.right { text-align: right; }
+footer a { color: var(--text-body); }
+footer a:hover { color: var(--navy); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 880px) {
+  .legal-page { padding: 40px 0 72px; }
+  .top-chrome .nav-mid { display: none; }
+  footer .wrap { grid-template-columns: 1fr; gap: 12px; text-align: left; }
+  footer .col.center, footer .col.right { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ TOP CHROME ═══ -->
+<div class="top-chrome">
+  <div class="wrap">
+    <a href="/" class="brand">
+      <span style="color: var(--navy);">Go</span><span style="color: var(--sky);">Flight</span>
+    </a>
+    <nav class="nav-mid">
+      <a href="/#why">Why</a>
+      <a href="/#building">What we're building</a>
+      <a href="/#audiences">Who it's for</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+    <div class="top-right">
+      <a href="https://dev.goflight.ai" class="signin">Sign in</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LEGAL PAGE ═══ -->
+<div class="legal-page">
+  <div class="wrap">
+    <div class="legal-inner">
+
+      <a href="/" class="back-link">← Back to goflight.ai</a>
+
+      <h1 class="page-title">Privacy Policy</h1>
+
+      <div class="beta-banner">
+        <strong>Beta Notice:</strong> This privacy policy applies to the GoFlight beta platform.
+        It will be updated prior to public launch and is pending formal legal review.
+      </div>
+
+      <div class="legal-content">
+
+        <h2>1. What Data We Collect</h2>
+        <p>We collect the following categories of information:</p>
+        <ul>
+          <li><strong>Account information:</strong> Name, email address, phone number, company name, role (customer/operator).</li>
+          <li><strong>Trip data:</strong> Flight requests, routes, passenger counts, dates, special requirements.</li>
+          <li><strong>Transaction data:</strong> Bids, bookings, payment information (processed by Stripe — we do not store full card numbers).</li>
+          <li><strong>Chat logs:</strong> Messages exchanged through platform messaging and Flyn AI assistant interactions.</li>
+          <li><strong>Usage analytics:</strong> Pages visited, features used, session duration, device type, browser information.</li>
+          <li><strong>Operator credentials:</strong> Certifications, insurance documents, fleet information.</li>
+        </ul>
+
+        <h2>2. How We Use Your Data</h2>
+        <ul>
+          <li><strong>Matching:</strong> Connecting customers with appropriate operators based on trip requirements and operator capabilities.</li>
+          <li><strong>Billing:</strong> Processing payments, managing escrow, issuing refunds, and generating invoices.</li>
+          <li><strong>Platform improvement:</strong> Analyzing usage patterns to improve features, fix bugs, and enhance user experience.</li>
+          <li><strong>Communication:</strong> Sending booking confirmations, status updates, and important platform notifications.</li>
+          <li><strong>Safety &amp; compliance:</strong> Verifying operator certifications and investigating reported issues.</li>
+        </ul>
+
+        <h2>3. Data Sharing</h2>
+        <p>We share your data only as necessary to provide the service:</p>
+        <ul>
+          <li><strong>Between parties:</strong> Passenger trip details are shared with operators who receive bid requests. Operator information is shared with passengers during the bidding and booking process.</li>
+          <li><strong>Payment processor:</strong> Transaction data is shared with Stripe to process payments.</li>
+          <li><strong>Legal requirements:</strong> We may disclose data when required by law, regulation, or legal process.</li>
+        </ul>
+        <p><strong>We never sell your personal data to third parties.</strong></p>
+
+        <h2>4. Your Rights (GDPR &amp; Global Privacy)</h2>
+        <p>Regardless of your location, you have the following rights regarding your data:</p>
+        <ul>
+          <li><strong>Access:</strong> Request a copy of the personal data we hold about you.</li>
+          <li><strong>Rectification:</strong> Request correction of inaccurate or incomplete data.</li>
+          <li><strong>Erasure:</strong> Request deletion of your personal data (subject to legal retention requirements).</li>
+          <li><strong>Portability:</strong> Request your data in a structured, machine-readable format.</li>
+          <li><strong>Objection:</strong> Object to processing of your data for specific purposes, including marketing.</li>
+          <li><strong>Restriction:</strong> Request that we limit how we process your data in certain circumstances.</li>
+        </ul>
+        <p>
+          To exercise any of these rights, contact us at
+          <a href="mailto:privacy@goflight.ai">privacy@goflight.ai</a>.
+          We will respond within 30 days.
+        </p>
+
+        <h2>5. Data Retention</h2>
+        <ul>
+          <li><strong>Account data:</strong> Retained for the duration of your account, plus 2 years after deletion for legal compliance.</li>
+          <li><strong>Transaction records:</strong> Retained for 7 years per financial regulatory requirements.</li>
+          <li><strong>Chat logs:</strong> Retained for 1 year after the related booking is completed.</li>
+          <li><strong>Usage analytics:</strong> Aggregated and anonymized after 90 days; raw data deleted after 1 year.</li>
+          <li><strong>Operator certifications:</strong> Retained for the duration of the operator's account plus 3 years.</li>
+        </ul>
+
+        <h2>6. Cookies &amp; Tracking</h2>
+        <p>GoFlight uses cookies for:</p>
+        <ul>
+          <li><strong>Essential cookies:</strong> Authentication, session management, and security. Required for the platform to function.</li>
+          <li><strong>Analytics cookies:</strong> Understanding how users interact with the platform to improve the experience.</li>
+        </ul>
+        <p>
+          We do not use advertising or third-party tracking cookies. You can manage cookie
+          preferences in your browser settings, though disabling essential cookies may affect
+          platform functionality.
+        </p>
+
+        <h2>7. Data Security</h2>
+        <p>
+          We implement industry-standard security measures including encryption in transit (TLS),
+          encryption at rest, access controls, and regular security reviews. However, no system
+          is 100% secure — particularly during beta.
+        </p>
+
+        <h2>8. SMS / Text Messaging</h2>
+        <div class="sms-section">
+          <p>
+            If you provide your mobile phone number and opt in, GoFlight may send you SMS text
+            messages for account authentication (multi-factor authentication and verification
+            codes), booking and transaction confirmations, and important service notifications.
+            These messages are transactional — we do not send marketing or promotional texts.
+          </p>
+          <ul>
+            <li><strong>No sharing of mobile numbers:</strong> Mobile information, including your
+                phone number, will not be shared with or sold to third parties or affiliates for
+                their marketing or promotional purposes.</li>
+            <li><strong>Message frequency:</strong> Message frequency varies based on your account activity.</li>
+            <li><strong>Rates:</strong> Message and data rates may apply.</li>
+            <li><strong>Opt-out:</strong> Reply STOP to any message to unsubscribe, or HELP for
+                assistance. You may also remove your phone number at any time in your profile settings.</li>
+          </ul>
+        </div>
+
+        <div class="highlight-box">
+          <h3>Contact for Data Requests</h3>
+          <p style="margin-bottom: 8px;">For any privacy-related questions or data requests:</p>
+          <ul>
+            <li><strong>Email:</strong> <a href="mailto:privacy@goflight.ai">privacy@goflight.ai</a></li>
+            <li><strong>Response time:</strong> Within 30 days of receipt</li>
+          </ul>
+        </div>
+
+        <p style="text-align: center; font-size: 14px; color: var(--text-body); margin-top: 48px;">
+          Last updated: June 1, 2026 &middot; Beta version — pending legal review before public launch.
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="col left">GoFlight · Delaware C-Corp · 2026</div>
+    <div class="col center"><a href="mailto:hello@goflight.ai">hello@goflight.ai</a></div>
+    <div class="col right">
+      <a href="/privacy.html">Privacy</a> &nbsp;·&nbsp; <a href="/terms.html">Terms</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

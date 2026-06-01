@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — GoFlight</title>
+<meta name="description" content="GoFlight Terms of Service — the rules governing use of the GoFlight platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─── */
+:root {
+  --navy: #0A2540;
+  --sky: #2E75B6;
+  --sky-light: #EBF5FF;
+  --gold: #C5962A;
+  --gold-soft: #FFF5E6;
+  --success: #00D4AA;
+  --text-body: #425466;
+  --bg: #FAFBFC;
+  --rule: #E6EAF0;
+  --rule-soft: #F0F3F7;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--navy);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+a { color: var(--sky); text-decoration: none; }
+a:hover { color: var(--navy); }
+img { max-width: 100%; display: block; }
+
+/* ─── TYPE ATOMS ─── */
+h1, h2, h3 { font-weight: 800; color: var(--navy); letter-spacing: -0.025em; }
+
+/* ─── LAYOUT ─── */
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+/* ─── TOP CHROME BAR ─── */
+.top-chrome {
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule-soft);
+  padding: 14px 0;
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(8px);
+  background: rgba(250, 251, 252, 0.94);
+}
+.top-chrome .wrap {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+}
+.top-chrome .brand {
+  font-weight: 800; font-size: 19px;
+  letter-spacing: -0.02em; color: var(--navy);
+}
+.top-chrome .nav-mid {
+  display: flex; gap: 24px; justify-content: center;
+}
+.top-chrome .nav-mid a {
+  font-size: 14px; font-weight: 500; color: var(--text-body);
+  padding: 6px 4px;
+}
+.top-chrome .nav-mid a:hover { color: var(--navy); }
+.top-chrome .top-right {
+  display: flex; align-items: center; gap: 10px;
+}
+.top-chrome .signin {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--navy);
+  padding: 8px 14px; border-radius: 4px;
+  background: var(--sky-light);
+}
+.top-chrome .signin:hover { background: var(--navy); color: #fff; }
+
+/* ─── LEGAL PAGE LAYOUT ─── */
+.legal-page {
+  padding: 64px 0 96px;
+}
+.legal-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-body);
+  margin-bottom: 40px;
+  transition: color 0.15s;
+}
+.back-link:hover { color: var(--navy); }
+
+.page-title {
+  font-size: clamp(36px, 6vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--navy);
+  margin-bottom: 32px;
+}
+
+/* ─── BETA BANNER ─── */
+.beta-banner {
+  background: var(--gold-soft);
+  border: 1px solid #f0e2c0;
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 48px;
+  font-size: 14px;
+  color: var(--navy);
+  line-height: 1.6;
+}
+.beta-banner strong {
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* ─── LEGAL CONTENT ─── */
+.legal-content {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text-body);
+}
+.legal-content h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin: 48px 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.legal-content h2:first-child { margin-top: 0; }
+.legal-content h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  margin: 20px 0 8px;
+}
+.legal-content p {
+  margin-bottom: 14px;
+}
+.legal-content p:last-child { margin-bottom: 0; }
+.legal-content ul, .legal-content ol {
+  margin: 12px 0 16px 24px;
+}
+.legal-content li {
+  margin-bottom: 8px;
+  line-height: 1.65;
+}
+.legal-content li strong {
+  color: var(--navy);
+  font-weight: 600;
+}
+.legal-content a {
+  color: var(--sky);
+}
+.legal-content a:hover {
+  color: var(--navy);
+}
+.legal-content .highlight-box {
+  background: var(--sky-light);
+  border: 1px solid #c8dff2;
+  border-left: 4px solid var(--sky);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  font-size: 15px;
+}
+.legal-content .highlight-box h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.legal-content .highlight-box ul {
+  margin: 8px 0 0 20px;
+}
+.legal-content .warning-box {
+  background: #fff8f0;
+  border: 1px solid #f0e2c0;
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 15px;
+  color: var(--navy);
+  line-height: 1.6;
+}
+.legal-content .sms-section {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin: 0 0 8px;
+}
+.legal-content .sms-section p { margin-bottom: 12px; }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 36px 0 48px;
+  background: var(--bg);
+  border-top: 1px solid var(--rule);
+}
+footer .wrap {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 32px;
+  align-items: center;
+}
+footer .col {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-body);
+}
+footer .col.center { text-align: center; }
+footer .col.right { text-align: right; }
+footer a { color: var(--text-body); }
+footer a:hover { color: var(--navy); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 880px) {
+  .legal-page { padding: 40px 0 72px; }
+  .top-chrome .nav-mid { display: none; }
+  footer .wrap { grid-template-columns: 1fr; gap: 12px; text-align: left; }
+  footer .col.center, footer .col.right { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ TOP CHROME ═══ -->
+<div class="top-chrome">
+  <div class="wrap">
+    <a href="/" class="brand">
+      <span style="color: var(--navy);">Go</span><span style="color: var(--sky);">Flight</span>
+    </a>
+    <nav class="nav-mid">
+      <a href="/#why">Why</a>
+      <a href="/#building">What we're building</a>
+      <a href="/#audiences">Who it's for</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+    <div class="top-right">
+      <a href="https://dev.goflight.ai" class="signin">Sign in</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LEGAL PAGE ═══ -->
+<div class="legal-page">
+  <div class="wrap">
+    <div class="legal-inner">
+
+      <a href="/" class="back-link">← Back to goflight.ai</a>
+
+      <h1 class="page-title">Terms of Service</h1>
+
+      <div class="beta-banner">
+        <strong>Beta Notice:</strong> These terms govern your use of the GoFlight beta platform.
+        They will be updated prior to public launch. Continued use constitutes acceptance.
+        This document is pending formal legal review.
+      </div>
+
+      <div class="legal-content">
+
+        <h2>1. About GoFlight</h2>
+        <p>
+          GoFlight is an <strong>air charter marketplace</strong> that connects customers seeking
+          charter flights with qualified charter operators. GoFlight does not provide charter
+          services directly — we are a technology platform that facilitates matching, communication,
+          and transaction coordination between parties.
+        </p>
+        <p>
+          All charter flights are operated by independent, certified operators. GoFlight is not
+          an air carrier, broker, or operator.
+        </p>
+
+        <h2>2. Acceptance of Terms</h2>
+        <p>
+          By accessing and using GoFlight ("the Platform"), you accept and agree to be bound by
+          these terms. If you do not agree, please do not use this service. These terms apply to
+          all users, including customers, operators, and administrators.
+        </p>
+
+        <h2>3. Escrow &amp; Payment Terms</h2>
+        <p>GoFlight uses an escrow payment model to protect both customers and operators:</p>
+        <ul>
+          <li>When a customer accepts a bid, payment is collected and held in escrow by our payment processor.</li>
+          <li>Funds are released to the operator only after service delivery is confirmed.</li>
+          <li>GoFlight collects a <strong>3% platform fee</strong> on each transaction.</li>
+          <li>Payment processing is handled by Stripe. By using GoFlight, you also agree to Stripe's terms of service.</li>
+        </ul>
+
+        <h2>4. Cancellation Framework</h2>
+        <p>Cancellation terms are set by each operator and displayed at the time of booking. General framework:</p>
+        <ul>
+          <li>Operators define their own cancellation windows and refund percentages.</li>
+          <li>The <strong>3% GoFlight platform fee is non-refundable</strong> once a booking is confirmed.</li>
+          <li>Refunds of the operator portion are subject to the operator's stated cancellation policy.</li>
+          <li>Disputes about cancellations should be raised through the platform's dispute resolution process.</li>
+        </ul>
+
+        <h2>5. User Responsibilities</h2>
+
+        <h3>All Users</h3>
+        <ul>
+          <li>Provide accurate, current, and complete information during registration and use.</li>
+          <li>Maintain the security of your password and account.</li>
+          <li>Accept responsibility for all activities under your account.</li>
+          <li>Comply with our Acceptable Use Policy.</li>
+        </ul>
+
+        <h3>Passengers</h3>
+        <ul>
+          <li>Provide accurate trip details and passenger information.</li>
+          <li>Review bids in good faith and respond in a timely manner.</li>
+          <li>Honor accepted bids and make payment according to agreed terms.</li>
+        </ul>
+
+        <h3>Charter Operators</h3>
+        <ul>
+          <li>Maintain valid certifications, insurance, and regulatory compliance at all times.</li>
+          <li>Provide accurate pricing, aircraft, and capability information.</li>
+          <li>Honor accepted bids and deliver services as quoted.</li>
+          <li>Promptly update certifications and fleet information when changes occur.</li>
+        </ul>
+
+        <h2>6. Limitation of Liability</h2>
+        <p>
+          GoFlight is provided on an <strong>"as is" and "as available"</strong> basis during
+          this beta period. To the maximum extent permitted by law:
+        </p>
+        <ul>
+          <li>GoFlight is not responsible for the actual provision of charter flight services.</li>
+          <li>GoFlight makes no warranties regarding safety, quality, or legality of operator services.</li>
+          <li>GoFlight is not liable for flight delays, cancellations, or other service issues.</li>
+          <li>GoFlight's total liability shall not exceed the platform fees paid by you in the preceding 12 months.</li>
+          <li>GoFlight is not liable for any indirect, incidental, or consequential damages.</li>
+        </ul>
+        <div class="warning-box">
+          <strong>Beta Disclaimer:</strong> This platform is in beta. Features may change,
+          experience interruptions, or contain bugs. Use at your own risk during the beta period.
+        </div>
+
+        <h2>7. Dispute Resolution</h2>
+        <p>If a dispute arises between a customer and operator regarding a booking:</p>
+        <ol>
+          <li><strong>Direct resolution:</strong> Parties are encouraged to resolve disputes directly through platform messaging.</li>
+          <li><strong>Platform mediation:</strong> Either party may request GoFlight mediation by contacting support.</li>
+          <li><strong>Escalation:</strong> Unresolved disputes may be escalated to binding arbitration in accordance with the rules of the American Arbitration Association.</li>
+        </ol>
+        <p>During the dispute process, escrowed funds will be held until resolution is reached.</p>
+
+        <h2>8. Account Termination</h2>
+        <p>
+          GoFlight reserves the right to suspend or terminate user accounts for violation of these
+          terms, fraudulent activity, failure to maintain required certifications, or repeated
+          complaints.
+        </p>
+
+        <h2>9. Privacy</h2>
+        <p>
+          Your use of GoFlight is also governed by our <a href="/privacy.html">Privacy Policy</a>,
+          which is incorporated into these terms by reference.
+        </p>
+
+        <h2>10. Governing Law</h2>
+        <p>
+          These terms are governed by the laws of the State of Delaware and the United States,
+          without regard to conflict of law principles.
+        </p>
+
+        <h2>11. SMS / Text Messaging</h2>
+        <div class="sms-section">
+          <p>
+            By providing your mobile phone number and opting in, you consent to receive recurring
+            SMS text messages from GoFlight for account authentication (MFA), verification codes,
+            booking confirmations, and service notifications. These messages are transactional, not
+            marketing.
+          </p>
+          <ul>
+            <li>Message frequency varies. Message and data rates may apply.</li>
+            <li>Your mobile number will not be shared with or sold to third parties for marketing
+                purposes. See our <a href="/privacy.html">Privacy Policy</a>.</li>
+            <li>Reply <strong>STOP</strong> to opt out at any time, or <strong>HELP</strong> for help.</li>
+          </ul>
+        </div>
+
+        <div class="highlight-box">
+          <h3>Contact</h3>
+          <p style="margin-bottom: 8px;">Questions about these terms? Contact us at:</p>
+          <ul>
+            <li><strong>Email:</strong> <a href="mailto:legal@goflight.ai">legal@goflight.ai</a></li>
+          </ul>
+        </div>
+
+        <p style="text-align: center; font-size: 14px; color: var(--text-body); margin-top: 48px;">
+          Last updated: June 1, 2026 &middot; Beta version — pending legal review before public launch.
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="col left">GoFlight · Delaware C-Corp · 2026</div>
+    <div class="col center"><a href="mailto:hello@goflight.ai">hello@goflight.ai</a></div>
+    <div class="col right">
+      <a href="/privacy.html">Privacy</a> &nbsp;·&nbsp; <a href="/terms.html">Terms</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
